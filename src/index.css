@@ -6,6 +6,10 @@
   --page-bg-secondary: #c2d6d4;
   --page-bg-dark: #3a4f4c;
 
+  /*Navbar*/
+  --nav-text: #607673;
+  --nav-hover:#455654;
+  --nav-active:#06584c;
   /* Cards */
   --card-bg: #f6fffe;
   --card-border: #d5e2e0;

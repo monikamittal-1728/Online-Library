@@ -1,13 +1,19 @@
 import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { pathname } = useLocation();
+
+  const isHome = pathname === "/";
+  const isBooks = pathname === "/books";
+  const isAddBook = pathname === "/addbook";
 
   return (
     <nav
       className="
         w-full
-    px-2
+        px-2
         sm:px-3
         py-2
       "
@@ -23,12 +29,12 @@ const Navbar = () => {
 
           <h1
             className="
-                text-lg
-                sm:text-2xl
-                font-semibold
-                text-(--primary-text)
-                leading-tight
-              "
+              text-lg
+              sm:text-2xl
+              font-semibold
+              text-(--primary-text)
+              leading-tight
+            "
           >
             Online Library
           </h1>
@@ -36,43 +42,71 @@ const Navbar = () => {
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-5 text-sm font-medium">
-          <p
-            className="
-              text-(--secondary-text)
-              hover:text-(--primary-text)
-              cursor-pointer
-              transition
-            "
-          >
-            Home
-          </p>
+          <Link to="/">
+            <p
+              className={`
+                font-bold
+                hover:text-(--nav-hover)
+                hover:scale-110
+                cursor-pointer
+                transition
+                rounded-full
+                px-3
+                py-1
+                ${
+                  isHome
+                    ? "text-(--nav-active) bg-white/40"
+                    : "text-(--nav-text)"
+                }
+              `}
+            >
+              Home
+            </p>
+          </Link>
 
-          <p
-            className="
-              text-(--secondary-text)
-              hover:text-(--primary-text)
-              cursor-pointer
-              transition
-            "
-          >
-            Browse
-          </p>
+          <Link to="/books">
+            <p
+              className={`
+                font-bold
+                hover:text-(--nav-hover)
+                hover:scale-110
+                cursor-pointer
+                transition
+                rounded-full
+                px-3
+                py-1
+                ${
+                  isBooks
+                    ? "text-(--nav-active) bg-white/40"
+                    : "text-(--nav-text)"
+                }
+              `}
+            >
+              Browse
+            </p>
+          </Link>
 
-          <p
-            className="
-              bg-(--accent-bg)
-              hover:bg-(--accent-hover)
-              text-white
-              px-4
-              py-1.5
-              rounded-full
-              cursor-pointer
-              transition
-              shadow-sm
-            "
-          >
-            Add Book
-          </p>
+          <Link to="/addbook">
+            <p
+              className={`
+                font-bold
+                hover:text-(--nav-hover)
+                hover:scale-110
+                cursor-pointer
+                transition
+                rounded-full
+                px-3
+                py-1
+                ${
+                  isAddBook
+                    ? "text-(--nav-active) bg-white/40"
+                    : "text-(--nav-text)"
+                }
+              `}
+            >
+              Add Book
+            </p>
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -94,12 +128,11 @@ const Navbar = () => {
           className="
             md:hidden
             mt-3
+            mx-4
             flex
             flex-col
             gap-3
             bg-(--card-bg)
-            border
-            border-(--border-color)
             rounded-xl
             p-4
             shadow-md
@@ -108,43 +141,65 @@ const Navbar = () => {
             font-medium
           "
         >
-          <p
-            className="
-              text-(--secondary-text)
-              hover:text-(--primary-text)
-              cursor-pointer
-              transition
-            "
-          >
-            Home
-          </p>
+          <Link to="/" onClick={() => setMenuOpen(false)}>
+            <p
+              className={`
+                font-bold
+                cursor-pointer
+                transition
+                rounded-full
+                px-3
+                py-2
+                ${
+                  isHome
+                    ? "text-(--nav-text) bg-(--accent-hover)/30"
+                    : "text-(--secondary-text) hover:text-(--primary-text)"
+                }
+              `}
+            >
+              Home
+            </p>
+          </Link>
 
-          <p
-            className="
-              text-(--secondary-text)
-              hover:text-(--primary-text)
-              cursor-pointer
-              transition
-            "
-          >
-            Browse
-          </p>
+          <Link to="/books" onClick={() => setMenuOpen(false)}>
+            <p
+              className={`
+                font-bold
+                cursor-pointer
+                transition
+                rounded-full
+                px-3
+                py-2
+                ${
+                  isBooks
+                    ? "text-(--nav-text) bg-(--accent-hover)/30"
+                    : "text-(--secondary-text) hover:text-(--primary-text)"
+                }
+              `}
+            >
+              Browse
+            </p>
+          </Link>
 
-          <p
-            className="
-              bg-(--accent-bg)
-              hover:bg-(--accent-hover)
-              text-white
-              px-4
-              py-2
-              rounded-full
-              cursor-pointer
-              transition
-              shadow-sm
-            "
-          >
-            Add Book
-          </p>
+          <Link to="/addbook" onClick={() => setMenuOpen(false)}>
+            <p
+              className={`
+                font-bold
+                cursor-pointer
+                transition
+                rounded-full
+                px-3
+                py-2
+                ${
+                  isAddBook
+                    ? "text-(--nav-text) bg-(--accent-hover)/30"
+                    : "text-(--secondary-text) hover:text-(--primary-text)"
+                }
+              `}
+            >
+              Add Book
+            </p>
+          </Link>
         </div>
       )}
     </nav>

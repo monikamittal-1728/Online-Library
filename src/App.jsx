@@ -1,12 +1,12 @@
 import React from "react";
 import NavBar from "./components/NavBar";
-import HomePage from "./Pages/Home/HomePage";
+import { Outlet } from "react-router-dom";
 
 const App = () => {
   return (
-    <div className="bg-fixed bg-gradient-to-br from-(--page-bg)  via-(--page-bg-secondary) to-(--page-bg-dark)">
+    <div className="min-h-screen bg-fixed bg-gradient-to-br from-(--page-bg)  via-(--page-bg-secondary) to-(--page-bg-dark)">
       <NavBar />
-      <HomePage/>
+      <Outlet/>
     </div>
   );
 };

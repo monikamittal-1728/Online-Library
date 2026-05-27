@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
@@ -72,6 +73,7 @@ const HeroSection = () => {
             gap-4
           "
         >
+          <Link to='/books'>
           <button
             className="
               bg-(--accent-bg)
@@ -92,9 +94,10 @@ const HeroSection = () => {
           >
             Browse Books
           </button>
-
-          <button
-            className="
+          </Link>
+          <Link to="/addbook">
+            <button
+              className="
               bg-(--accent-bg-1)
               active:scale-90
               hover:bg-[#3a4f4c]
@@ -112,9 +115,10 @@ const HeroSection = () => {
               font-medium
               transition
             "
-          >
-            Add Books
-          </button>
+            >
+              Add Books
+            </button>
+          </Link>
         </div>
       </div>
 
