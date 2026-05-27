@@ -1,1 +1,33 @@
 @import "tailwindcss";
+
+:root {
+  /* Main Backgrounds */
+  --page-bg: #ffffff;
+  --page-bg-secondary: #c2d6d4;
+  --page-bg-dark: #3a4f4c;
+
+  /* Cards */
+  --card-bg: #f6fffe;
+  --card-border: #d5e2e0;
+
+  /* Text */
+  --primary-text: #27423e;
+  --secondary-text: #4f6663;
+  --muted-text: #7b908d;
+
+  /* Accent */
+  --accent-bg: #5d7c78;
+  --accent-hover: #4c6965;
+  --accent-light: #dbe8e6;
+  --accent-light-1: #e5f7f4;
+  --accent-bg-1: rgba(255, 255, 255, 0.7);
+
+  /* Extra Shades */
+  --soft-shadow: rgba(58, 79, 76, 0.12);
+  --glass-effect: rgba(255, 255, 255, 0.35);
+
+  /* Optional Pastel Accents */
+  --pastel-purple: #cfc7e8;
+  --pastel-pink: #e6d4dc;
+  --pastel-green: #d8e7df;
+}
