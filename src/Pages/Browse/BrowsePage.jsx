@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from "react";
 import categories from "../../data/categories";
 import BookCard from "../../components/BookCard";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { filterByCategory } from "../../store/booksSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const BrowsePage = () => {
-  const { category } = useParams();
-  console.log(category);
+  let { category } = useParams();
   
+
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { filteredBooks } = useSelector((state) => state.books);
 
   useEffect(() => {
     dispatch(filterByCategory(category));
   }, [category]);
- 
+
   const [activeCategory, setActiveCategory] = useState(0);
 
   const filterCategory = [{ id: 0, name: "All" }, ...categories];
@@ -38,7 +39,10 @@ const BrowsePage = () => {
           return (
             <div
               key={item.id}
-              onClick={() => setActiveCategory(item.id)}
+              onClick={() => {
+                navigate(`/books/${item.name}`)
+                setActiveCategory(item.id);
+              }}
               className={`
                 px-4 py-2 whitespace-nowrap rounded-full text-sm cursor-pointer
                 transition-all duration-200

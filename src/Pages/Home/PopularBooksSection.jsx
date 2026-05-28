@@ -1,11 +1,12 @@
 import React from "react";
 import BookCard from "../../components/BookCard";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const PopularBooksSection = () => {
-  const books = useSelector(store => store.books.books);
+  const books = useSelector((store) => store.books.books);
   const popularBooks = books.filter((item) => item.popular);
-console.log(books);
+  console.log(books);
 
   return (
     <section className="w-full py-16 flex flex-col items-center gap-10">
@@ -14,9 +15,9 @@ console.log(books);
         <h1 className="text-lg md:text-2xl font-bold tracking-tight text-[var(--primary-text)]">
           Popular Books
         </h1>
-
-        <button
-          className="
+        <Link to="/books/All">
+          <button
+            className="
             flex items-center gap-2
             text-[var(--page-bg-dark)]
             font-semibold
@@ -25,10 +26,11 @@ console.log(books);
             hover:gap-3
             hover:text-[var(--primary-text)]
           "
-        >
-          See All
-          <span>→</span>
-        </button>
+          >
+            See All
+            <span>→</span>
+          </button>
+        </Link>
       </div>
 
       {/* Books Grid */}

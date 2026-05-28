@@ -13,11 +13,8 @@ const booksSlice = createSlice({
     },
     filterByCategory: (state, action) => {
       const category = action.payload.toLowerCase();
-      console.log("here filter",category);
 
       if (category === "all") {
-        console.log("here all");
-
         state.filteredBooks = state.books;
       } else {
         state.filteredBooks = state.books.filter(
