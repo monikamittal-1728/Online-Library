@@ -1,5 +1,6 @@
 import React from "react";
 import categories from "../../data/categories";
+import { Link } from "react-router-dom";
 const CategoriesSection = () => {
   const category_list = categories;
   console.log(category_list);
@@ -12,9 +13,10 @@ const CategoriesSection = () => {
 
       <div className="flex flex-wrap gap-4 ">
         {category_list.map((item) => (
-          <div
-            key={item.id}
-            className="cursor-pointer px-6 py-3 rounded-2xl font-medium transition-all duration-300
+          <Link to={`/books/${item.name}`}>
+            <div
+              key={item.id}
+              className="cursor-pointer px-6 py-3 rounded-2xl font-medium transition-all duration-300
                    /* Background & Text using your variables */
                    bg-(--card-bg) text-(--secondary-text) 
                    border border-(--card-border) backdrop-blur-md
@@ -30,9 +32,10 @@ const CategoriesSection = () => {
                    
                    /* Active/Click State */
                    active:scale-95 active:bg-s(--accent-hover)"
-          >
-            {item.name}
-          </div>
+            >
+              {item.name}
+            </div>
+          </Link>
         ))}
       </div>
     </div>

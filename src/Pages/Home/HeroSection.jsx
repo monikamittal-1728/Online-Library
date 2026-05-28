@@ -73,7 +73,7 @@ const HeroSection = () => {
             gap-4
           "
         >
-          <Link to='/books'>
+          <Link to='/books/ALL'>
           <button
             className="
               bg-(--accent-bg)

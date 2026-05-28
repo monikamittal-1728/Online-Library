@@ -1,9 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import categories from "../../data/categories";
-import books from "../../data/books";
 import BookCard from "../../components/BookCard";
+import { useParams } from "react-router-dom";
+import { filterByCategory } from "../../store/booksSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const BrowsePage = () => {
+  const { category } = useParams();
+  console.log(category);
+  
+  const dispatch = useDispatch();
+  const { filteredBooks } = useSelector((state) => state.books);
+
+  useEffect(() => {
+    dispatch(filterByCategory(category));
+  }, [category]);
+ 
   const [activeCategory, setActiveCategory] = useState(0);
 
   const filterCategory = [{ id: 0, name: "All" }, ...categories];
@@ -45,7 +57,7 @@ const BrowsePage = () => {
 
       {/* Books Grid */}
       <div className="w-full max-w-[1800px] mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-        {books.map((item) => (
+        {filteredBooks.map((item) => (
           <BookCard key={item.id} book={item} />
         ))}
       </div>

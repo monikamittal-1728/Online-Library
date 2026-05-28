@@ -1,21 +1,33 @@
 import { createSlice } from "@reduxjs/toolkit";
-import  initialBooks from "../data/books"
+import initialBooks from "../data/books";
 const booksSlice = createSlice({
   name: "books",
   initialState: {
-    books: initialBooks,   /* Here I fetched my dummy data from books.js and saved in slice as initial data*/
-    searchBooks :[]
+    books:
+      initialBooks /* Here I fetched my dummy data from books.js and saved in slice as initial data*/,
+    filteredBooks: initialBooks,
   },
   reducers: {
     addBook: (state, action) => {
       state.books = [action.payload, ...state.books];
-    },  
-    searchBooks :(state,action)=>{
-        state.searchBooks = action.payload;
-    }
+    },
+    filterByCategory: (state, action) => {
+      const category = action.payload.toLowerCase();
+      console.log("here filter",category);
+
+      if (category === "all") {
+        console.log("here all");
+
+        state.filteredBooks = state.books;
+      } else {
+        state.filteredBooks = state.books.filter(
+          (book) => book.category.toLowerCase() === category,
+        );
+      }
+    },
   },
 });
 
-export const{addBook,searchBooks} = booksSlice.actions;
+export const { addBook, filterByCategory } = booksSlice.actions;
 
 export default booksSlice.reducer;

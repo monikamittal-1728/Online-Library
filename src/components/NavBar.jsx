@@ -6,7 +6,7 @@ const Navbar = () => {
   const { pathname } = useLocation();
 
   const isHome = pathname === "/";
-  const isBooks = pathname === "/books";
+  const isBooks = pathname.startsWith("/books");
   const isAddBook = pathname === "/addbook";
 
   return (
@@ -64,7 +64,7 @@ const Navbar = () => {
             </p>
           </Link>
 
-          <Link to="/books">
+          <Link to="/books/ALL">
             <p
               className={`
                 font-bold
@@ -161,7 +161,7 @@ const Navbar = () => {
             </p>
           </Link>
 
-          <Link to="/books" onClick={() => setMenuOpen(false)}>
+          <Link to="/books/ALL" onClick={() => setMenuOpen(false)}>
             <p
               className={`
                 font-bold
