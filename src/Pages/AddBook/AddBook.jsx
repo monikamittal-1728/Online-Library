@@ -76,7 +76,7 @@ const AddBook = () => {
       popular: formData.popular,
       image: preview ?? null,
     }));
-    navigate("/");
+    navigate("/books/All");
   };
 
   return (

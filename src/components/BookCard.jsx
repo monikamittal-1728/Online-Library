@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const BookCard = ({ book }) => {
   return (
@@ -40,6 +41,7 @@ const BookCard = ({ book }) => {
           />
 
           {/* Blur Overlay */}
+          <Link to={`/bookdetail/${book.id}`}>
           <div
             className="
       absolute inset-0
@@ -50,9 +52,9 @@ const BookCard = ({ book }) => {
       group-hover:opacity-100
     "
           />
-
-          <div
-            className="
+          
+            <div
+              className="
       absolute top-1/2 left-1/2
       -translate-x-1/2 -translate-y-1/2
 
@@ -70,9 +72,11 @@ const BookCard = ({ book }) => {
       group-hover:opacity-100
       group-hover:scale-100
     "
-          >
-            View <span>→</span>
-          </div>
+            >
+              View Details <span>→</span>
+            </div>
+          </Link>
+          
         </div>
         {/* Content */}
         <div className="p-5 flex flex-col gap-3">

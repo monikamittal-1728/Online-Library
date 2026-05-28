@@ -6,7 +6,7 @@ const Navbar = () => {
   const { pathname } = useLocation();
 
   const isHome = pathname === "/";
-  const isBooks = pathname.startsWith("/books");
+  const isBooks = pathname.startsWith("/book");
   const isAddBook = pathname === "/addbook";
 
   return (
