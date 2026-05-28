@@ -6,8 +6,6 @@ import { Link } from "react-router-dom";
 const PopularBooksSection = () => {
   const books = useSelector((store) => store.books.books);
   const popularBooks = books.filter((item) => item.popular);
-  console.log(books);
-
   return (
     <section className="w-full py-16 flex flex-col items-center gap-10">
       {/* Header */}
@@ -48,7 +46,7 @@ const PopularBooksSection = () => {
         "
       >
         {popularBooks.map((item) => (
-          <BookCard book={item} />
+          <BookCard book={item} key={item.id} />
         ))}
       </div>
     </section>

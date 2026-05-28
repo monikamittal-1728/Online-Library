@@ -8,9 +8,10 @@ const booksSlice = createSlice({
     filteredBooks: initialBooks,
   },
   reducers: {
-    addBook: (state, action) => {
-      state.books = [action.payload, ...state.books];
-    },
+      addBook: (state, action) => {
+        state.books = [action.payload, ...state.books];
+        state.filteredBooks = [...state.books];
+      },
     filterByCategory: (state, action) => {
       const category = action.payload.toLowerCase();
 

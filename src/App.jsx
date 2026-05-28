@@ -5,7 +5,7 @@ import ScrollToTop from "./components/ScrollToTop";
 
 const App = () => {
   return (
-    <div className="min-h-screen bg-fixed bg-gradient-to-br from-(--page-bg)  via-(--page-bg-secondary) to-(--page-bg-dark)">
+    <div className="min-h-screen bg-fixed bg-gradient-to-br from-[var(--page-bg)] via-[var(--page-bg-secondary)] to-[var(--page-bg-dark)]">
      <ScrollToTop/>
       <NavBar />
       <Outlet/>

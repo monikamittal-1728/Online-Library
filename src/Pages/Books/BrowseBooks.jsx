@@ -95,7 +95,8 @@ const BrowseBooks = () => {
       w-full
       px-4 py-2
       pr-12
-      border rounded-md
+      border 
+      rounded-xl
       outline-none
     "
         />

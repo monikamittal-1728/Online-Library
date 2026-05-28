@@ -2,7 +2,7 @@ import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const BookDetail = () => {
+const BookDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -56,12 +56,12 @@ const BookDetail = () => {
       <div className="flex flex-col lg:flex-row gap-10 items-start">
 
         {/* ── LEFT — Cover image + action buttons ── */}
-        <div className="w-full lg:w-76 flex-shrink-0 flex flex-col gap-3 sticky top-10">
+        <div className="w-full lg:w-76 flex-shrink-0 flex flex-col gap-3 md:sticky top-10">
           {book.image ? (
             <img
               src={book.image}
               alt={`${book.title} cover`}
-              className="w-full aspect-[3/4] object-cover rounded-2xl border border-[var(--card-border)]"
+              className="w-full aspect-[3/4] object-cover rounded-2xl border border-[var(--card-border)] border-2"
             />
           ) : (
             /* Placeholder when no image */
@@ -137,4 +137,4 @@ const BookDetail = () => {
   );
 };
 
-export default BookDetail;
+export default BookDetails;

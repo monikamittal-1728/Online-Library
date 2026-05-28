@@ -9,7 +9,7 @@ import ErrorPage from "./components/ErrorPage.jsx";
 import { Provider } from "react-redux";
 import store from "./store/store.js";
 import BrowseBooks from "./Pages/Books/BrowseBooks.jsx";
-import BookDetail from "./Pages/Books/BookDetail.jsx";
+import BookDetails from "./Pages/Books/BookDetails.jsx";
 
 const appRouter = createBrowserRouter([
   {
@@ -27,7 +27,7 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/bookdetail/:id",
-        element: <BookDetail/>,
+        element: <BookDetails/>,
       },
     ],
     errorElement: <ErrorPage />,

@@ -1,12 +1,177 @@
-# React + Vite
+# Online Library 📚
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive and responsive Online Library web application built with **React**, **Vite**, **Redux Toolkit**, and **React Router**.
+Users can browse books by category, search books, explore detailed book information, and add new books dynamically.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+* 📖 Browse books by categories
+* 🔍 Search books by title or author
+* 📚 View detailed information about each book
+* ➕ Add new books dynamically
+* 🧭 Dynamic routing with React Router
+* ⚡ Fast performance with Vite
+* 🎨 Modern responsive UI with Tailwind CSS
+* ❌ Custom Error / Not Found page
+* 🗂 Category-based filtering
+* 🔄 Redux Toolkit state management
+* 📱 Fully responsive for mobile, tablet, and desktop
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+# 🌐 Live Demo
+
+🔗 Live Website:
+https://online-book-library-management.netlify.app/
+
+🔗 GitHub Repository:
+https://github.com/monikamittal-1728/Online-Library.git
+
+---
+
+# 🛠 Tech Stack
+
+* React
+* Vite
+* React Router DOM
+* Redux Toolkit
+* Tailwind CSS
+
+---
+
+# 📂 Project Structure
+
+```bash
+src/
+│
+├── components/
+├── pages/
+├── store/
+├── data/
+├── assets/
+└── main.jsx
+```
+
+---
+
+# 📸 Screenshots
+
+## 1️⃣ Home Page
+
+```md
+![Home Page](./screenshots/home-page.png)
+```
+
+---
+
+## 2️⃣ Home - Category & Popular Section
+
+```md
+![Category Section](./screenshots/home-category-popular.png)
+```
+
+---
+
+## 3️⃣ Browse Books Page
+
+```md
+![Browse Books](./screenshots/browse-books.png)
+```
+
+---
+
+## 4️⃣ Search Books in Browse Page
+
+```md
+![Search Books](./screenshots/search-books.png)
+```
+
+---
+
+## 5️⃣ Book Details Page
+
+```md
+![Book Details](./screenshots/book-details.png)
+```
+
+---
+
+## 6️⃣ Add Book Page
+
+```md
+![Add Book](./screenshots/add-book.png)
+```
+
+---
+
+## 7️⃣ Mobile View
+
+```md
+![Mobile View](./screenshots/mobile-view.png)
+```
+
+---
+
+# ⚙️ Installation & Setup
+
+## Clone the repository
+
+```bash
+git clone https://github.com/monikamittal-1728/Online-Library.git
+```
+
+## Navigate to project folder
+
+```bash
+cd Online-Library
+```
+
+## Install dependencies
+
+```bash
+npm install
+```
+
+## Run development server
+
+```bash
+npm run dev
+```
+
+---
+
+# ✨ Functionalities Implemented
+
+* Dynamic category filtering
+* URL parameter handling for categories
+* Search functionality
+* Reusable BookCard component
+* Dynamic routing for book details
+* Add Book form with validation
+* Redux state management
+* Responsive navbar with mobile menu
+* Error page handling
+* Clean UI with hover and active states
+* Scroll behavior improvements
+* Modern gradient-based UI design
+* Mobile responsive layouts
+* Component-based architecture
+
+---
+
+# 📱 Responsive Design
+
+The application is fully responsive and optimized for:
+
+* 📱 Mobile Devices
+* 💻 Laptops
+* 🖥 Desktop Screens
+* 📟 Tablets
+
+---
+
+# 👩‍💻 Author
+
+Made with ❤️ by Monika Gupta

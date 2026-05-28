@@ -5,7 +5,6 @@ const BookCard = ({ book }) => {
   return (
     <>
       <div
-        key={book.id}
         className="
               group
               overflow-hidden
@@ -31,53 +30,50 @@ const BookCard = ({ book }) => {
             }
             alt={book.title}
             className="
-      w-full
-      h-full
-      object-cover
-      transition-transform
-      duration-300
-      group-hover:scale-105
-    "
+              w-full
+              h-full
+              object-cover
+              transition-transform
+              duration-300
+              group-hover:scale-105
+            "
           />
 
-          {/* Blur Overlay */}
+          {/* Blur Overlay — desktop hover only */}
           <Link to={`/bookdetail/${book.id}`}>
-          <div
-            className="
-      absolute inset-0
-      bg-black/30
-      backdrop-blur-xs
-      opacity-0
-      transition-opacity duration-300
-      group-hover:opacity-100
-    "
-          />
-          
             <div
               className="
-      absolute top-1/2 left-1/2
-      -translate-x-1/2 -translate-y-1/2
+                absolute inset-0
+                bg-black/30
+                backdrop-blur-xs
+                opacity-0
+                transition-opacity duration-300
+                group-hover:opacity-100
+              "
+            />
 
-      flex items-center gap-2
-
-      text-white
-      font-semibold
-      text-lg md:text-base
-
-      opacity-0
-      transition-all duration-300
-
-      hover:text-yellow-200
-      active:scale-90
-      group-hover:opacity-100
-      group-hover:scale-100
-    "
+            {/* View Details — desktop hover only */}
+            <div
+              className="
+                absolute top-1/2 left-1/2
+                -translate-x-1/2 -translate-y-1/2
+                flex items-center gap-2
+                text-white
+                font-semibold
+                text-base
+                opacity-0
+                transition-all duration-300
+                hover:text-yellow-200
+                active:scale-90
+                group-hover:opacity-100
+                group-hover:scale-100
+              "
             >
               View Details <span>→</span>
             </div>
           </Link>
-          
         </div>
+
         {/* Content */}
         <div className="p-5 flex flex-col gap-3">
           {/* Title */}
@@ -92,7 +88,6 @@ const BookCard = ({ book }) => {
           >
             {book.title}
           </h2>
-
           {/* Author */}
           <p
             className="
@@ -118,7 +113,6 @@ const BookCard = ({ book }) => {
             >
               {book.category}
             </span>
-
             <span
               className="
                     text-sm
@@ -130,6 +124,27 @@ const BookCard = ({ book }) => {
               ⭐ {book.rating}
             </span>
           </div>
+
+          {/* View Details button — mobile only, hidden on md+ */}
+          <Link
+            to={`/bookdetail/${book.id}`}
+            className="
+              md:hidden
+              w-full
+              py-2
+              rounded-xl
+              border border-[var(--accent-bg)]
+              text-[var(--accent-bg)]
+              text-sm font-semibold
+              text-center
+              transition-all duration-200
+              active:scale-95
+              hover:bg-[var(--accent-bg)]
+              hover:text-white
+            "
+          >
+            View Details →
+          </Link>
         </div>
       </div>
     </>

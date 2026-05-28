@@ -3,7 +3,6 @@ import categories from "../../data/categories";
 import { Link } from "react-router-dom";
 const CategoriesSection = () => {
   const category_list = categories;
-  console.log(category_list);
 
   return (
     <div className="flex flex-col px-6  justify-center  gap-10 ">
@@ -13,13 +12,12 @@ const CategoriesSection = () => {
 
       <div className="flex flex-wrap gap-4 ">
         {category_list.map((item) => (
-          <Link to={`/books/${item.name}`}>
+          <Link to={`/books/${item.name}`} key={item.id}>
             <div
-              key={item.id}
               className="cursor-pointer px-6 py-3 rounded-2xl font-medium transition-all duration-300
                    /* Background & Text using your variables */
-                   bg-(--card-bg) text-(--secondary-text) 
-                   border border-(--card-border) backdrop-blur-md
+                   bg-[var(--card-bg)] text-[var(--secondary-text)] border-[var(--card-border)]
+                   border  backdrop-blur-md
                    
                    /* Shadow using your custom soft-shadow variable */
                    shadow-[0_4px_12px_var(--soft-shadow)]
