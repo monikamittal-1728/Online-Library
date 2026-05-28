@@ -60,57 +60,43 @@ src/
 
 ## 1️⃣ Home Page
 
-```md
 ![Home Page](./screenshots/home-page.png)
-```
 
 ---
 
 ## 2️⃣ Home - Category & Popular Section
 
-```md
 ![Category Section](./screenshots/home-category-popular.png)
-```
 
 ---
 
 ## 3️⃣ Browse Books Page
 
-```md
 ![Browse Books](./screenshots/browse-books.png)
-```
 
 ---
 
 ## 4️⃣ Search Books in Browse Page
 
-```md
 ![Search Books](./screenshots/search-books.png)
-```
 
 ---
 
 ## 5️⃣ Book Details Page
 
-```md
 ![Book Details](./screenshots/book-details.png)
-```
 
 ---
 
 ## 6️⃣ Add Book Page
 
-```md
 ![Add Book](./screenshots/add-book.png)
-```
 
 ---
 
 ## 7️⃣ Mobile View
 
-```md
 ![Mobile View](./screenshots/mobile-view.png)
-```
 
 ---
 
