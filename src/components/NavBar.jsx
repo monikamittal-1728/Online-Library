@@ -64,7 +64,7 @@ const Navbar = () => {
             </p>
           </Link>
 
-          <Link to="/books/ALL">
+          <Link to="/books/All">
             <p
               className={`
                 font-bold
@@ -161,7 +161,7 @@ const Navbar = () => {
             </p>
           </Link>
 
-          <Link to="/books/ALL" onClick={() => setMenuOpen(false)}>
+          <Link to="/books/All" onClick={() => setMenuOpen(false)}>
             <p
               className={`
                 font-bold

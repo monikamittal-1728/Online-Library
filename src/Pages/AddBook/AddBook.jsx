@@ -12,7 +12,7 @@ const AddBook = () => {
     title: "",
     author: "",
     category: "",
-    rating: "",
+    rating: 0,
     description: "",
     popular: false,
   });
@@ -26,8 +26,14 @@ const AddBook = () => {
     setErrors({ ...errors, [e.target.name]: "" });
   };
 
-  const handleCheckbox = (e) => {
-    setFormData({ ...formData, popular: e.target.checked });
+  const handleCategory = (cat) => {
+    setFormData({ ...formData, category: cat });
+    setErrors({ ...errors, category: "" });
+  };
+
+  const handleRating = (val) => {
+    setFormData({ ...formData, rating: val });
+    setErrors({ ...errors, rating: "" });
   };
 
   const handleImageChange = (e) => {
@@ -47,10 +53,8 @@ const AddBook = () => {
     const newErrors = {};
     if (!formData.title.trim())       newErrors.title = "Title is required";
     if (!formData.author.trim())      newErrors.author = "Author is required";
-    if (!formData.category)           newErrors.category = "Category is required";
-    if (!formData.rating)             newErrors.rating = "Rating is required";
-    else if (formData.rating < 1 || formData.rating > 5)
-                                      newErrors.rating = "Rating must be between 1 and 5";
+    if (!formData.category)           newErrors.category = "Please select a category";
+    if (!formData.rating)             newErrors.rating = "Please select a rating";
     if (!formData.description.trim()) newErrors.description = "Description is required";
     return newErrors;
   };
@@ -62,40 +66,55 @@ const AddBook = () => {
       setErrors(newErrors);
       return;
     }
-    const newBook = {
+    dispatch(addBook({
       id: Date.now(),
       title: formData.title.trim(),
       author: formData.author.trim(),
       category: formData.category,
-      rating: Number(formData.rating),
+      rating: formData.rating,
       description: formData.description.trim(),
       popular: formData.popular,
       image: preview ?? null,
-    };
-    dispatch(addBook(newBook));
+    }));
     navigate("/");
   };
 
   return (
-    <div className="w-full min-h-screen flex items-start justify-center px-6 py-10">
-      {/* Two-column wrapper */}
-      <div className="w-full max-w-5xl flex flex-col lg:flex-row gap-8 items-start">
+    /* ← left-aligned like your other pages, no centering */
+    <div className="w-full min-h-screen px-6 pt-2 pb-10">
 
-        {/* ── LEFT — Form ── */}
-        <div className="flex-1 bg-[var(--card-bg)] backdrop-blur-md border border-[var(--card-border)] rounded-3xl p-8 shadow-lg">
-          <h1 className="text-2xl font-bold text-[var(--primary-text)] mb-1">
-            Add New Book
-          </h1>
-          <p className="text-sm text-[var(--secondary-text)] mb-7">
-            Fill in the details below to add a book to the library.
-          </p>
+      {/* Page heading */}
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold text-[var(--primary-text)] mb-1">
+          Add a new book
+        </h1>
+        <p className="text-sm text-[var(--secondary-text)]">
+          Fill in the details and upload a cover to add your book to the library.
+        </p>
+      </div>
 
-          <form onSubmit={handleFormSubmit} className="flex flex-col gap-5">
+      {/* Two-column layout */}
+      <form onSubmit={handleFormSubmit} className="flex flex-col lg:flex-row gap-6 items-start">
+
+        {/* ── LEFT — main form ── */}
+        <div className="flex-1 flex flex-col gap-6">
+
+          {/* Card 1 — Book info */}
+          <div className="bg-[var(--card-bg)] border border-[var(--card-border)] rounded-2xl p-6">
+            <div className="flex items-center gap-3 mb-5">
+              <div className="w-8 h-8 rounded-lg bg-[var(--accent-light-1)] flex items-center justify-center text-[var(--accent-bg)]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+              </div>
+              <div>
+                <div className="text-sm font-semibold text-[var(--primary-text)]">Book details</div>
+                <div className="text-xs text-[var(--secondary-text)]">Title, author and description</div>
+              </div>
+            </div>
 
             {/* Title + Author */}
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 mb-4">
               <div className="flex flex-col gap-1 flex-1">
-                <label className="text-sm font-medium text-[var(--primary-text)]">
+                <label className="text-xs font-medium text-[var(--secondary-text)] uppercase tracking-wide">
                   Title <span className="text-[var(--accent-bg)]">*</span>
                 </label>
                 <input
@@ -103,14 +122,12 @@ const AddBook = () => {
                   value={formData.title}
                   onChange={handleChange}
                   placeholder="e.g. Dune"
-                  className="px-4 py-2 rounded-xl border border-[var(--card-border)] bg-white/60 outline-none focus:ring-2 focus:ring-[var(--accent-bg)]"
+                  className="px-4 py-2.5 rounded-xl border border-[var(--card-border)] bg-white/60 outline-none focus:ring-2 focus:ring-[var(--accent-bg)] text-sm"
                 />
-                {errors.title && (
-                  <span className="text-xs text-red-500">{errors.title}</span>
-                )}
+                {errors.title && <span className="text-xs text-red-500">{errors.title}</span>}
               </div>
               <div className="flex flex-col gap-1 flex-1">
-                <label className="text-sm font-medium text-[var(--primary-text)]">
+                <label className="text-xs font-medium text-[var(--secondary-text)] uppercase tracking-wide">
                   Author <span className="text-[var(--accent-bg)]">*</span>
                 </label>
                 <input
@@ -118,62 +135,15 @@ const AddBook = () => {
                   value={formData.author}
                   onChange={handleChange}
                   placeholder="e.g. Frank Herbert"
-                  className="px-4 py-2 rounded-xl border border-[var(--card-border)] bg-white/60 outline-none focus:ring-2 focus:ring-[var(--accent-bg)]"
+                  className="px-4 py-2.5 rounded-xl border border-[var(--card-border)] bg-white/60 outline-none focus:ring-2 focus:ring-[var(--accent-bg)] text-sm"
                 />
-                {errors.author && (
-                  <span className="text-xs text-red-500">{errors.author}</span>
-                )}
-              </div>
-            </div>
-
-            {/* Category + Rating */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <div className="flex flex-col gap-1 flex-1">
-                <label className="text-sm font-medium text-[var(--primary-text)]">
-                  Category <span className="text-[var(--accent-bg)]">*</span>
-                </label>
-                <select
-                  name="category"
-                  value={formData.category}
-                  onChange={handleChange}
-                  className="px-4 py-2 rounded-xl border border-[var(--card-border)] bg-white/60 outline-none focus:ring-2 focus:ring-[var(--accent-bg)]"
-                >
-                  <option value="">Choose category</option>
-                  {categories.map((cat) => (
-                    <option key={cat.id} value={cat.name}>
-                      {cat.name}
-                    </option>
-                  ))}
-                </select>
-                {errors.category && (
-                  <span className="text-xs text-red-500">{errors.category}</span>
-                )}
-              </div>
-              <div className="flex flex-col gap-1 flex-1">
-                <label className="text-sm font-medium text-[var(--primary-text)]">
-                  Rating{" "}
-                  <span className="text-[10px] text-[var(--secondary-text)]">(1–5)</span>{" "}
-                  <span className="text-[var(--accent-bg)]">*</span>
-                </label>
-                <input
-                  name="rating"
-                  type="number"
-                  min="1"
-                  max="5"
-                  value={formData.rating}
-                  onChange={handleChange}
-                  placeholder="e.g. 4"
-                  className="px-4 py-2 rounded-xl border border-[var(--card-border)] bg-white/60 outline-none focus:ring-2 focus:ring-[var(--accent-bg)]"
-                />
-                {errors.rating && (
-                  <span className="text-xs text-red-500">{errors.rating}</span>
-                )}
+                {errors.author && <span className="text-xs text-red-500">{errors.author}</span>}
               </div>
             </div>
 
             {/* Description */}
             <div className="flex flex-col gap-1">
-              <label className="text-sm font-medium text-[var(--primary-text)]">
+              <label className="text-xs font-medium text-[var(--secondary-text)] uppercase tracking-wide">
                 Description <span className="text-[var(--accent-bg)]">*</span>
               </label>
               <textarea
@@ -182,134 +152,176 @@ const AddBook = () => {
                 value={formData.description}
                 onChange={handleChange}
                 placeholder="Write a short description of the book..."
-                className="px-4 py-2 rounded-xl border border-[var(--card-border)] bg-white/60 outline-none focus:ring-2 focus:ring-[var(--accent-bg)] resize-none"
+                className="px-4 py-2.5 rounded-xl border border-[var(--card-border)] bg-white/60 outline-none focus:ring-2 focus:ring-[var(--accent-bg)] resize-none text-sm"
               />
-              {errors.description && (
-                <span className="text-xs text-red-500">{errors.description}</span>
-              )}
+              {errors.description && <span className="text-xs text-red-500">{errors.description}</span>}
+            </div>
+          </div>
+
+          {/* Card 2 — Category as clickable pills */}
+          <div className="bg-[var(--card-bg)] border border-[var(--card-border)] rounded-2xl p-6">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-8 h-8 rounded-lg bg-[var(--accent-light-1)] flex items-center justify-center text-[var(--accent-bg)]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+              </div>
+              <div>
+                <div className="text-sm font-semibold text-[var(--primary-text)]">Category</div>
+                <div className="text-xs text-[var(--secondary-text)]">Pick one that fits best</div>
+              </div>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {categories.map((cat) => (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => handleCategory(cat.name)}
+                  className={`px-4 py-2 rounded-xl text-sm font-medium border transition-all duration-200 ${
+                    formData.category === cat.name
+                      ? "bg-[var(--accent-bg)] text-white border-[var(--accent-bg)]"
+                      : "bg-white/60 text-[var(--secondary-text)] border-[var(--card-border)] hover:border-[var(--accent-bg)] hover:text-[var(--accent-bg)]"
+                  }`}
+                >
+                  {cat.name}
+                </button>
+              ))}
+            </div>
+            {errors.category && <span className="text-xs text-red-500 mt-2 block">{errors.category}</span>}
+          </div>
+
+          {/* Card 3 — Star rating + popular */}
+          <div className="bg-[var(--card-bg)] border border-[var(--card-border)] rounded-2xl p-6">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-8 h-8 rounded-lg bg-[var(--accent-light-1)] flex items-center justify-center text-[var(--accent-bg)]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <div>
+                <div className="text-sm font-semibold text-[var(--primary-text)]">Rating & visibility</div>
+                <div className="text-xs text-[var(--secondary-text)]">How good is this book?</div>
+              </div>
             </div>
 
-            {/* Popular checkbox */}
-            <div className="flex items-center gap-3">
-              <input
-                id="popular"
-                type="checkbox"
-                checked={formData.popular}
-                onChange={handleCheckbox}
-                className="w-4 h-4 accent-[var(--accent-bg)] cursor-pointer rounded"
-              />
-              <label
-                htmlFor="popular"
-                className="text-sm font-medium text-[var(--primary-text)] cursor-pointer select-none"
-              >
-                Mark as popular
-                <span className="ml-2 text-xs text-[var(--secondary-text)]">
-                  (shows on home page)
-                </span>
-              </label>
+            {/* Star rating */}
+            <div className="mb-2">
+              <div className="text-xs font-medium text-[var(--secondary-text)] uppercase tracking-wide mb-3">
+                Rating <span className="text-[var(--accent-bg)]">*</span>
+              </div>
+              <div className="flex gap-2">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <button
+                    key={star}
+                    type="button"
+                    onClick={() => handleRating(star)}
+                    className={`w-11 h-11 rounded-xl border text-xl transition-all duration-200 ${
+                      formData.rating >= star
+                        ? "bg-[var(--accent-light-1)] border-[var(--accent-bg)] text-[var(--accent-bg)]"
+                        : "bg-white/60 border-[var(--card-border)] text-[var(--muted-text)] hover:border-[var(--accent-bg)]"
+                    }`}
+                  >
+                    ★
+                  </button>
+                ))}
+                {formData.rating > 0 && (
+                  <span className="self-center text-sm text-[var(--secondary-text)] ml-2">
+                    {formData.rating}/5
+                  </span>
+                )}
+              </div>
+              {errors.rating && <span className="text-xs text-red-500 mt-2 block">{errors.rating}</span>}
             </div>
 
-            {/* Submit */}
-            <button
-              type="submit"
-              className="mt-2 px-5 py-3 rounded-xl bg-[var(--accent-bg)] text-white font-semibold hover:bg-[var(--accent-hover)] transition-all duration-300"
+            {/* Popular toggle */}
+            <div
+              onClick={() => setFormData({ ...formData, popular: !formData.popular })}
+              className={`mt-4 flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all duration-200 ${
+                formData.popular
+                  ? "bg-[var(--accent-light-1)] border-[var(--accent-bg)]"
+                  : "bg-white/40 border-[var(--card-border)] hover:border-[var(--accent-bg)]"
+              }`}
             >
-              Add Book
-            </button>
-          </form>
+              <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center flex-shrink-0 transition-all duration-200 ${
+                formData.popular
+                  ? "bg-[var(--accent-bg)] border-[var(--accent-bg)]"
+                  : "border-[var(--muted-text)]"
+              }`}>
+                {formData.popular && (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                )}
+              </div>
+              <div>
+                <div className="text-sm font-medium text-[var(--primary-text)]">Mark as popular</div>
+                <div className="text-xs text-[var(--secondary-text)]">Shows in the Popular Books section on home page</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Submit button */}
+          <button
+            type="submit"
+            className="w-full py-3.5 rounded-2xl bg-[var(--accent-hover)] text-white font-semibold text-base hover:bg-[var(--nav-active)] transition-all duration-300 flex items-center justify-center gap-2"
+          >
+            Add book to library
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
         </div>
 
-        {/* ── RIGHT — Cover image upload ── */}
-        <div className="w-full lg:w-72 flex flex-col gap-4 sticky top-10">
+        {/* ── RIGHT — image upload ── */}
+        <div className="w-full lg:w-64 flex flex-col gap-4 sticky top-10">
 
-          {/* Upload card */}
-          <div className="bg-[var(--card-bg)] backdrop-blur-md border border-[var(--card-border)] rounded-3xl p-6 shadow-lg flex flex-col gap-4">
+          <div className="bg-[var(--card-bg)] border border-[var(--card-border)] rounded-2xl p-5 flex flex-col gap-4">
             <div>
-              <h2 className="text-base font-bold text-[var(--primary-text)] mb-1">
-                Cover Image
-              </h2>
-              <p className="text-xs text-[var(--secondary-text)]">
-                Upload a cover to make your book stand out.
-              </p>
+              <div className="text-sm font-semibold text-[var(--primary-text)] mb-1">Cover image</div>
+              <div className="text-xs text-[var(--secondary-text)]">Upload to make your book stand out</div>
             </div>
 
-            {!preview ? (
-              /* Drop zone */
-              <label
-                htmlFor="cover-upload"
-                className="flex flex-col items-center justify-center gap-3 border-2 border-dashed border-[var(--card-border)] rounded-2xl py-10 cursor-pointer hover:border-[var(--accent-bg)] transition-all duration-200 bg-white/20"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="36"
-                  height="36"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="text-[var(--accent-bg)]"
-                >
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                  <polyline points="17 8 12 3 7 8" />
-                  <line x1="12" y1="3" x2="12" y2="15" />
-                </svg>
-                <div className="text-center">
-                  <p className="text-sm font-medium text-[var(--primary-text)]">
-                    Click to upload
-                  </p>
-                  <p className="text-xs text-[var(--secondary-text)] mt-1">
-                    PNG, JPG, WEBP
-                  </p>
-                </div>
-                <input
-                  id="cover-upload"
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={handleImageChange}
-                />
-              </label>
-            ) : (
-              /* Preview */
-              <div className="flex flex-col gap-3">
+            {preview ? (
+              <div className="relative">
                 <img
                   src={preview}
-                  alt="Book cover preview"
-                  className="w-full aspect-[3/4] object-cover rounded-2xl border border-[var(--card-border)] shadow-sm"
+                  alt="Cover preview"
+                  className="w-full aspect-[3/4] object-cover rounded-xl border border-[var(--card-border)]"
                 />
-                <div className="flex flex-col gap-1">
-                  <span className="text-sm font-medium text-[var(--primary-text)] truncate">
-                    {coverImage?.name}
-                  </span>
-                  <span className="text-xs text-[var(--secondary-text)]">
-                    {(coverImage?.size / 1024).toFixed(1)} KB
-                  </span>
-                </div>
                 <button
                   type="button"
                   onClick={handleRemoveImage}
-                  className="w-full text-sm px-4 py-2 rounded-xl border border-[var(--card-border)] text-[var(--primary-text)] hover:bg-red-50 hover:border-red-300 hover:text-red-500 transition-all duration-200"
+                  className="absolute top-2 right-2 w-7 h-7 bg-white rounded-full border border-[var(--card-border)] flex items-center justify-center hover:bg-red-50 hover:border-red-300 transition-all duration-200"
                 >
-                  Remove image
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 </button>
+                <div className="mt-2">
+                  <div className="text-xs font-medium text-[var(--primary-text)] truncate">{coverImage?.name}</div>
+                  <div className="text-xs text-[var(--secondary-text)]">{(coverImage?.size / 1024).toFixed(1)} KB</div>
+                </div>
               </div>
+            ) : (
+              <div className="w-full aspect-[3/4] bg-[var(--accent-light-1)] rounded-xl border border-dashed border-[var(--accent-bg)] flex flex-col items-center justify-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--accent-bg)]"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                <span className="text-xs text-[var(--accent-bg)] font-medium">No cover yet</span>
+              </div>
+            )}
+
+            {!preview && (
+              <label
+                htmlFor="cover-upload"
+                className="flex flex-col items-center gap-2 border border-dashed border-[var(--card-border)] rounded-xl py-5 cursor-pointer hover:border-[var(--accent-bg)] transition-all duration-200 bg-white/30"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--accent-bg)]"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <span className="text-xs font-medium text-[var(--primary-text)]">Click to upload</span>
+                <span className="text-xs text-[var(--secondary-text)]">PNG · JPG · WEBP</span>
+                <input id="cover-upload" type="file" accept="image/*" className="hidden" onChange={handleImageChange} />
+              </label>
             )}
           </div>
 
           {/* Tip card */}
-          <div className="bg-[var(--accent-light-1)] border border-[var(--card-border)] rounded-2xl p-4">
-            <p className="text-xs font-medium text-[var(--primary-text)] mb-1">
-              💡 Tip
-            </p>
+          <div className="bg-[var(--accent-light-1)] border border-[var(--card-border)] rounded-2xl p-4 flex gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--accent-bg)] flex-shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
             <p className="text-xs text-[var(--secondary-text)] leading-relaxed">
-              Check "Mark as popular" to feature this book in the Popular Books section on the home page.
+              Marking a book as <span className="font-medium text-[var(--primary-text)]">popular</span> will feature it in the Popular Books section on the home page.
             </p>
           </div>
-        </div>
 
-      </div>
+        </div>
+      </form>
     </div>
   );
 };

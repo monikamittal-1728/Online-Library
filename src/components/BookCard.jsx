@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 
-const BookCard = ({book}) => {
+const BookCard = ({ book }) => {
   return (
     <>
-          <div
-            key={book.id}
-            className="
+      <div
+        key={book.id}
+        className="
               group
               overflow-hidden
               rounded-3xl
@@ -20,13 +20,16 @@ const BookCard = ({book}) => {
               hover:shadow-[0_10px_25px_var(--soft-shadow)]
               cursor-pointer
             "
-          >
-            {/* Image */}
-            <div className="h-60 overflow-hidden relative group">
-              <img
-                src={book.image}
-                alt={book.title}
-                className="
+      >
+        {/* Image */}
+        <div className="h-60 overflow-hidden relative group">
+          <img
+            src={
+              book.image ||
+              "https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            }
+            alt={book.title}
+            className="
       w-full
       h-full
       object-cover
@@ -34,11 +37,11 @@ const BookCard = ({book}) => {
       duration-300
       group-hover:scale-105
     "
-              />
+          />
 
-              {/* Blur Overlay */}
-              <div
-                className="
+          {/* Blur Overlay */}
+          <div
+            className="
       absolute inset-0
       bg-black/30
       backdrop-blur-xs
@@ -46,10 +49,10 @@ const BookCard = ({book}) => {
       transition-opacity duration-300
       group-hover:opacity-100
     "
-              />
+          />
 
-              <div
-                className="
+          <div
+            className="
       absolute top-1/2 left-1/2
       -translate-x-1/2 -translate-y-1/2
 
@@ -67,40 +70,40 @@ const BookCard = ({book}) => {
       group-hover:opacity-100
       group-hover:scale-100
     "
-              >
-                View <span>→</span>
-              </div>
-            </div>
-            {/* Content */}
-            <div className="p-5 flex flex-col gap-3">
-              {/* Title */}
-              <h2
-                className="
+          >
+            View <span>→</span>
+          </div>
+        </div>
+        {/* Content */}
+        <div className="p-5 flex flex-col gap-3">
+          {/* Title */}
+          <h2
+            className="
                   text-lg
                   font-semibold
                   text-[var(--primary-text)]
                   transition-colors
                   line-clamp-1
                 "
-              >
-                {book.title}
-              </h2>
+          >
+            {book.title}
+          </h2>
 
-              {/* Author */}
-              <p
-                className="
+          {/* Author */}
+          <p
+            className="
                   text-sm
                   text-[var(--secondary-text)]
                   transition-colors
                 "
-              >
-                by {book.author}
-              </p>
+          >
+            by {book.author}
+          </p>
 
-              {/* Category + Rating */}
-              <div className="flex items-center justify-between mt-2">
-                <span
-                  className="
+          {/* Category + Rating */}
+          <div className="flex items-center justify-between mt-2">
+            <span
+              className="
                     px-3 py-1 rounded-full
                     text-xs font-medium
                     bg-[var(--accent-light)]
@@ -108,27 +111,25 @@ const BookCard = ({book}) => {
                     group-hover:bg-white/80
                     transition-colors
                   "
-                >
-                  {book.category}
-                </span>
+            >
+              {book.category}
+            </span>
 
-                <span
-                  className="
+            <span
+              className="
                     text-sm
                     font-semibold
                     text-[var(--primary-text)]
                     transition-colors
                   "
-                >
-                  ⭐ {book.rating}
-                </span>
-              </div>
-            </div>
+            >
+              ⭐ {book.rating}
+            </span>
           </div>
-        
-
+        </div>
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default BookCard
+export default BookCard;

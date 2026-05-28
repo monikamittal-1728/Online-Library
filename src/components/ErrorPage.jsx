@@ -12,8 +12,7 @@ const ErrorPage = () => {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center px-6"
-      style={{ backgroundColor: "var(--page-bg)" }}
+      className="min-h-screen flex items-center justify-center px-6 bg-gradient-to-br from-(--page-bg)  via-(--page-bg-secondary) to-(--page-bg-dark)"
     >
       <div className="flex flex-col items-center text-center max-w-2xl w-full">
         {/* ── Big 404 with book spines on both sides ── */}
@@ -179,7 +178,7 @@ const ErrorPage = () => {
           </Link>
 
           <Link
-            to="/books"
+            to="/books/All"
             className="
     flex items-center gap-2
     px-6 py-2.5
@@ -187,10 +186,11 @@ const ErrorPage = () => {
     text-sm font-medium
     transition-all duration-200
     border
-    bg-transparent
-    text-[var(--accent-bg)]
-    border-[var(--accent-bg)]
+    bg-[var(--primary-text)]
+    text-white
+    border-[var(--primary-text)]
     hover:bg-[var(--accent-light)]
+    hover:text-[var(--primary-text)]
   "
           >
             <span className="font-bold">🕮</span> Browse books
