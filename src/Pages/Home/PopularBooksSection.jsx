@@ -1,9 +1,11 @@
 import React from "react";
-import books from "../../data/books";
 import BookCard from "../../components/BookCard";
+import { useSelector } from "react-redux";
 
 const PopularBooksSection = () => {
+  const books = useSelector(store => store.books.books);
   const popularBooks = books.filter((item) => item.popular);
+console.log(books);
 
   return (
     <section className="w-full py-16 flex flex-col items-center gap-10">
@@ -44,8 +46,8 @@ const PopularBooksSection = () => {
         "
       >
         {popularBooks.map((item) => (
-          <BookCard book={item}/>
-       ))}
+          <BookCard book={item} />
+        ))}
       </div>
     </section>
   );
